@@ -5,19 +5,20 @@
 #The Genome Institute, Washington Univerisity School of Medicine
 #R tutorial for CBW - Informatics for RNA-sequence Analysis
 
+#Modified by Dan Jones dan(dot)jones@auckland.ac.nz
 #######################
 # Loading Data into R #
 #######################
 
 #Set working directory where output will go
-working_dir = "~/workspace/rnaseq/de/tophat_counts"
+working_dir = "~/Desktop/transcriptomics_working"
 setwd(working_dir)
 
 #Read in gene mapping
-mapping=read.table("~/workspace/rnaseq/refs/hg19/genes/ENSG_ID2Name.txt", header=FALSE, stringsAsFactors=FALSE, row.names=1)
+mapping=read.table("edgeR/ENSG_ID2Name.txt", header=FALSE, stringsAsFactors=FALSE, row.names=1)
 
 # Read in count matrix
-dat=read.table("~/workspace/rnaseq/expression/tophat_counts/gene_read_counts_table_all.tsv", header=TRUE, stringsAsFactors=FALSE, row.names=1)
+dat=read.table("htseq-count/tophat_all_gene_read_counts.tsv", header=TRUE, stringsAsFactors=FALSE, row.names=1)
 
 #The last 5 rows are summary data, remove
 rawdata=dat[1:(length(rownames(dat))-5),]
@@ -85,8 +86,7 @@ o <- order(et$table$logFC[as.logical(de)],decreasing=TRUE)
 mat <- mat[o,]
 
 # Save table
-write.table(mat, file="DE_genes.txt", quote=FALSE, row.names=FALSE, sep="\t")
+write.table(mat, file="edgeR/DE_genes.txt", quote=FALSE, row.names=FALSE, sep="\t")
 
 #To exit R type the following
 quit(save="no")
-

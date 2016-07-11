@@ -5,7 +5,7 @@
 #The Genome Institute, Washington Univerisity School of Medicine
 #R tutorial for CBW - Informatics for RNA-sequence Analysis
 
-
+# Modified by Dan Jones
 # Optional:
 # Install cummeRbund library - this should have been done already
 #source("http://bioconductor.org/biocLite.R")
@@ -19,16 +19,16 @@ library(cummeRbund)
 #The authors of cummeRbund are working on fixes
 #See http://seqanswers.com/forums/showthread.php?t=47785&page=2
 #The following is a temporary workaround
-sqliteQuickSQL<-dbGetQuery
-dbBeginTransaction<-dbBegin
-
+#sqliteQuickSQL<-dbGetQuery
+#dbBeginTransaction<-dbBegin
+setwd("~/Desktop/transcriptomics_working/")
 # Set the paths to cuffdiff/cuffmerge output
 # Change these paths if you wish to produce cummeRbund output for different cuffdiff runs (e.g., using STAR alignments)
-refCuffdiff="~/workspace/rnaseq/de/tophat_cufflinks/ref_only"
-gtfFilePath="~/workspace/rnaseq/expression/tophat_cufflinks/ref_only/merged/merged.gtf"
-genomePath="~/workspace/rnaseq/refs/hg19/fasta/chr22_ERCC92/chr22_ERCC92.fa"
-outfile="~/workspace/rnaseq/de/tophat_cufflinks/ref_only/Tutorial_Part2_cummeRbund_output.pdf"
-outfile2="~/workspace/rnaseq/de/tophat_cufflinks/ref_only/Tutorial_Part2_cummeRbund_output_extras.pdf"
+refCuffdiff="cuffdiff"
+gtfFilePath="cuffmerge/merged.gtf"
+genomePath="fasta/chr22_ERCC92.fa"
+outfile="cummerbund/output.pdf"
+outfile2="cummerbund/output_extras.pdf"
 
 # read in Cufflinks output
 cuff <- readCufflinks(dir=refCuffdiff,rebuild=T,gtfFile=gtfFilePath,genome=genomePath)
@@ -74,7 +74,7 @@ genes.PCA
 # Plot #9 - MDS scaling of all genes across sample replicates
 genes.MDS.rep<-MDSplot(genes(cuff),replicates=T)
 genes.MDS.rep
-	
+
 # Get the gene ids of the significant (FDR <5%) differentially expressed genes
 mySigGeneIds<-getSig(cuff,alpha=0.05,level='genes')
 
@@ -202,4 +202,3 @@ quit(save="no")
 #Barplot of isoform-level expression levels for UHR vs HBR, by replicate
 #igb<-expressionBarplot(isoforms(myGene),replicates=T)
 #igb
-
